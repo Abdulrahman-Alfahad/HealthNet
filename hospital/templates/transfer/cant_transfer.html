@@ -1,0 +1,17 @@
+{% extends 'index/base.html' %}
+{% block title %}Patient Transfer{% endblock %}
+{% block header %}Patient Transfer Page{% endblock %}
+{% block content %}
+
+    <div class="maincontent">
+        <div class="whitebox">
+            <p>Patient already admitted in this hospital.</p>
+            {% if perms.auth.transfer_patient_receiving_permission %}
+                <a href="{% url 'medical:view_medical_information' patient_id %}" class="button">Back to patient</a>
+            {% elif perms.auth.transfer_patient_any_permission %}
+                <a href="{% url 'index:administrator' %}" class="button">Back to dashboard</a>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,151 @@
+{% extends 'index/base.html' %}
+{% block title %}Medical Information{% endblock %}
+{% block header %}Medical Information Page{% endblock %}
+{% block login %}
+<li><a href="{% url 'account:logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="maincontent">
+    <div class="whitebox_small">
+
+        <h2>
+            Diagnoses for {{ patient.user.first_name }} {{ patient.user.last_name }}
+
+            {% if patient.get_current_treatment_session %}
+            <br>
+            <small>Inpatient</small>
+            {% endif %}
+        </h2>
+
+        {% load get_diagnoses %}
+
+        <table class="table table-condensed">
+            <tbody style="text-align: left;">
+
+            {% for item in medical_information %}
+
+            {% get_diagnoses item as diagnosis_list %}
+
+            {% for diagnosis in diagnosis_list %}
+            <tr>
+                <td>
+                    {% if diagnosis.archived %}
+                    {% if user_has_edit_permission %}
+                    <a href="{% url 'medical:update_diagnosis' diagnosis.id %}">{{ diagnosis }}</a>
+                    <t style="color: red; font-style: italic">Archived</t>
+                    {% else %}
+                    <p>{{ diagnosis }}</p>
+                    <t style="color: red; font-style: italic">Archived</t>
+                    {% endif %}
+                    {% else %}
+                    {% if user_has_edit_permission %}
+                    <a href="{% url 'medical:update_diagnosis' diagnosis.id %}">{{ diagnosis }}</a>
+                    {% else %}
+                    <p>{{ diagnosis }}</p>
+                    {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+
+            <tr>
+                <td></td>
+            </tr>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+        {% if patient.get_current_treatment_session %}
+
+        <form method="post" action="{% url 'hospital:discharge_patient' patient.id %}">
+            {% csrf_token %}
+
+            {% if can_transfer %}
+
+            <div class="row">
+                {% if user_has_add_permission %}
+                <a href="{% url 'medical:create_diagnosis' patient.id %}" class="btn btn-success">
+                    Add Diagnosis
+                </a>
+                {% else %}
+                <a href="{% url 'medical:view_prescriptions' patient.id %}" class="btn btn-success">
+                    View Prescriptions
+                </a>
+                {% endif %}
+            </div>
+            <h1></h1>
+            <div class="row">
+                <div class="col-md-3">
+                    {% if can_discharge %}
+                    <input type="submit" class="btn btn-danger" value="Discharge Patient">
+                    {% else %}
+                    <input type="submit" class="btn btn-danger" value="Discharge Patient" disabled>
+                    {% endif %}
+                </div>
+                <div class="col-md-3 col-md-offset-3">
+                    <a href="{% url 'hospital:transfer_patient_as_doctor' patient.id %}"
+                       class="btn btn-success">
+                        Transfer Patient
+                    </a>
+                </div>
+            </div>
+
+            {% else %}
+
+            <div class="row">
+                <div class="col-md-3">
+                    {% if user_has_add_permission %}
+                    <a href="{% url 'medical:create_diagnosis' patient.id %}" class="btn btn-success">
+                        Add Diagnosis
+                    </a>
+                    {% else %}
+                    <a href="{% url 'medical:view_prescriptions' patient.id %}" class="btn btn-success">
+                        View Prescriptions
+                    </a>
+                    {% endif %}
+                </div>
+                <div class="col-md-3 col-md-offset-3">
+                    {% if can_discharge %}
+                    <input type="submit" class="btn btn-danger" value="Discharge Patient">
+                    {% else %}
+                    <input type="submit" class="btn btn-danger" value="Discharge Patient" disabled>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% endif %}
+
+        </form>
+
+        {% else %}
+
+        <form method="post" action="{% url 'hospital:admit_patient' patient.id %}">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-3">
+                    {% if user_has_add_permission %}
+                    <a href="{% url 'medical:create_diagnosis' patient.id %}" class="btn btn-success">
+                        Add Diagnosis
+                    </a>
+                    {% else %}
+                    <a href="{% url 'medical:view_prescriptions' patient.id %}" class="btn btn-success">
+                        View Prescriptions
+                    </a>
+                    {% endif %}
+                </div>
+                <div class="col-md-3 col-md-offset-3">
+                    <input type="submit" class="btn btn-success" value="Admit Patient">
+                </div>
+            </div>
+        </form>
+
+        {% endif %}
+
+        <a href="{% url 'medical:view_patients' %}" class="btn btn-primary">Back to List</a>
+
+    </div>
+</div>
+{% endblock %}

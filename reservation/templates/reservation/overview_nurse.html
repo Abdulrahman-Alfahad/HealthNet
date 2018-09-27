@@ -1,0 +1,30 @@
+{% extends 'index/base.html' %}
+{% block title %}Appointment Overview{% endblock %}
+{% block header %}Appointments for {{ month_name }} {{ date.day }}, {{ date.year }}{% endblock %}
+{% block content %}
+
+    <div class="container" style="margin-top:75px;">
+        <div class="well">
+            {% for appointment in appointment_list %}
+                <h4>{{ appointment.title }}</h4>
+                <p>Patient Name: {{ appointment.patient }}<br/>
+                    Doctor Name: {{ appointment.doctor }}<br/>
+                    Room: {{ appointment.location }}<br/>
+                    Time: {{ appointment.start_time }} - {{ appointment.end_time }}</p>
+            {% empty %}
+
+                <p style="text-align:center;">There is no appointment on this date.</p>
+                <br/>
+            {% endfor %}
+            <div class="row">
+                <div class="col-md-5 col-md-offset-4">
+                    <button class="button">
+                        <a href="{% url 'reservation:weekview' date.day date.month date.year %}">Calendar</a>
+                    </button>
+                    <button class="button"><a href="{% url 'index:index' %}">Dashboard</a></button>
+                </div>
+                <br/>
+            </div>
+        </div>
+    </div>
+{% endblock %}

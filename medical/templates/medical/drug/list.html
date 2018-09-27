@@ -1,0 +1,36 @@
+{% extends 'index/base.html' %}
+{% block title %}Drugs{% endblock %}
+{% block header %}Drug List Page{% endblock %}
+{% block calendar %}Calendar <span class="caret"></span>{% endblock %}
+{% block profile %}Profile <span class="caret"></span>{% endblock %}
+{% block login %}
+    <li><a href="{% url 'account:logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+{% endblock %}
+
+{% block content %}
+    <div class="maincontent">
+        <div class="whitebox_small">
+
+            <h2>Available Drugs</h2>
+
+            <table class="table table-condensed">
+                <tbody>
+
+                {% for drug in drug_list %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td><a href="{% url 'medical:update_drug' drug.id %}" style="font-size: 14pt;">{{ drug }}</a></td>
+                        <td><a href="{% url 'medical:remove_drug' drug.id %}" style="margin-left: 24px;"
+                               class="btn btn-danger btn-xs">Remove</a></td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+
+            <a href="{% url 'medical:add_drug' %}" class="button">Add New Drug</a>
+
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,101 @@
+{% extends 'index/base.html' %}
+{% block title %}Appointment Calendar{% endblock %}
+{% block header %}Weekview Calendar{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <div class="container" style="margin-top:74px">
+        <div class="month" style="text-align: center; margin-left:-14px; margin-right:-14px;">
+            <div class="row">
+                {% if person == "user" %}
+                    <div class="col-md-1 col-md-push-10">
+                        <a href="{% url 'reservation:calendar_now' %}" style="color:white;text-decoration:none;">
+                            <i class="fa fa-calendar" aria-hidden="true"></i> Monthview</a></div>
+                    <div class="col-md-1 col-md-push-10"><a href="#" style="color:white;text-decoration:none;">
+                        <i class="fa fa-calendar-minus-o" aria-hidden="true"></i> Weekview</a></div>
+                {% endif %}
+            </div>
+            <table>
+                <tr>
+                    <td class="prev"><a
+                            href="{% url 'reservation:weekview' last_week.day last_week.month last_week.year %}"
+                            style="text-decoration: none;color: white;">&#10094;</a></td>
+                    <td class="monthhead" style="font-size:">{{ start_day }} - {{ end_day }}</td>
+                    <td class="next"><a
+                            href="{% url 'reservation:weekview' next_week.day next_week.month next_week.year %}"
+                            style="text-decoration: none;color: white;">&#10095;</a></td>
+                </tr>
+            </table>
+            <a href="{% url 'reservation:overview_today' %}" style="color:white;">Today</a>
+        </div>
+        <div class="row seven-cols">
+            <div class="col-md-1 dayview weekblock">Sunday</div>
+            <div class="col-md-1 dayview weekblock">Monday</div>
+            <div class="col-md-1 dayview weekblock">Tuesday</div>
+            <div class="col-md-1 dayview weekblock">Wednesday</div>
+            <div class="col-md-1 dayview weekblock">Thursday</div>
+            <div class="col-md-1 dayview weekblock">Friday</div>
+            <div class="col-md-1 dayview weekblock">Saturday</div>
+        </div>
+
+        <div class="col-xs-12" style="height:50px;"></div>
+
+        <div class="row seven-cols">
+            {% for day in week %}
+                <div class="col-md-1 dayblock" style="background-color:#ddd;">{{ day.day }}
+                    <a href="{% url 'reservation:overview' day.day day.month day.year %}" class="infobox"
+                       style="text-decoration:none;color:black;display:block;">
+                        <ul style="background-color:#ddd; padding-left:0px;">
+                            {% for appointment in appointment_list %}
+                                {% if appointment.date.day == day.day %}
+                                    {% if appointment.date.month == day.month %}
+                                        <li>{{ appointment.title }}: <p
+                                                style="font-size:10px;">{{ appointment.start_time }}
+                                            -{{ appointment.end_time }}</p></li>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+
+        {% if person == "nurse" %}
+            <div class="panel-group" style="margin-top:20px;">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" href="#collapse1">Click to open Doctor list</a>
+                        </h4>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse">
+                        <ul class="list-group">
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                {% for doctor in doctors %}
+                                    <li class="list-group-item">
+                                        {% if doctor.id in selected_doctor_list %}
+                                            <input type="checkbox" name="doctor_list" value="{{ doctor.id }}" checked>
+                                        {% else %}
+                                            <input type="checkbox" name="doctor_list" value="{{ doctor.id }}">
+                                        {% endif %}
+                                        Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }}
+                                    </li>
+                                {% endfor %}
+                                <li class="list-group-item"><input type="submit" value="Save" class="button-sm"/></li>
+                            </form>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+
+
+{% endblock %}

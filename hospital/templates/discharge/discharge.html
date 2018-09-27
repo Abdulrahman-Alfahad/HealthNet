@@ -1,0 +1,19 @@
+{% extends 'index/base.html' %}
+{% block title %}Patient Discharge{% endblock %}
+{% block header %}Patient Discharge Page{% endblock %}
+{% block content %}
+
+<div class="maincontent">
+    <div class="whitebox">
+        <p>Are you sure you want to discharge this patient?</p>
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="post" value="yes"/>
+            <input type="submit" value="Yes, Discharge" class="btn btn-default btn-lg inactive"/>
+            <a href="#" onclick="window.history.back(); return false;" class="btn btn-default btn-lg inactive"
+                       role="button">Cancel</a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

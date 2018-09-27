@@ -1,0 +1,29 @@
+{% extends 'index/base.html' %}
+{% block title %}Tests{% endblock %}
+{% block header %}Tests Detail Page{% endblock %}
+
+{% block content %}
+{% load static %}
+<div class="container">
+    <div class="col-md-10 col-md-offset-1">
+        <div id="jumbo" class="jumbotron">
+            <h2 style="text-align:center;">Test</h2>
+            <p>Description: {{ test.description }}</p>
+            <p>Releasing Doctor: Dr. {{ test.doctor.user.last_name }}</p>
+            <p>Results: {{ test.results }}</p>
+            <p>Diagnosis: {{ test.diagnosis.summary }}</p>
+            <p>Uploaded Files: </p>
+            <img src="{% static '' %}{{ path }}" alt="Test Result File"
+                 style="width:100%;height:100%;">
+            <div class="row" style="margin-top:15px;">
+                <div class="col-md-4">
+                    <a href="#" onclick="window.history.back(); return false;" class="btn btn-primary">
+                        Back
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

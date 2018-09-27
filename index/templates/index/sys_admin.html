@@ -1,0 +1,52 @@
+{% extends 'index/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block header %}System Admin Dashboard {% endblock %}
+{% block login %}
+<li><a href="{% url 'account:logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+{% endblock %}
+{% block content %}
+
+<div class="container" role="main">
+    <div class="hyper">
+        <div id="jumbo" class="jumbotron">
+            <h1>System Administrator Dashboard</h1>
+            <p>From here you are able to select any of the following buttons to access
+                creation of an Admin, viewing system information, and access to the admin console.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <a target="_parent" href="{% url 'hospital:system_information' %}">
+                        <button class="iconbutton">
+                            <i class="fa fa-tasks" aria-hidden="true"></i>
+                            <p style="font-size:20px;">System Information</p>
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <a target="_parent" href="{% url 'account:create_administrator' %}">
+
+                        <button class="iconbutton">
+                            <i class="fa fa-user-plus" aria-hidden="true"></i>
+                            <p style="font-size:19px;">Add Administrator Account</p></button>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <a target="_parent" href="/admin/">
+
+                        <button class="iconbutton">
+                            <i class="fa fa-hospital-o" aria-hidden="true"></i>
+                            <p style="font-size:19px;">Go to Admin Console</p></button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

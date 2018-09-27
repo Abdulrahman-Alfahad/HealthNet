@@ -1,0 +1,32 @@
+.signin {
+    z-index: 150;
+    margin: 75px auto auto auto;
+    width: 45%;
+    border-radius: 15px;
+    padding: 10px;
+    background-color: white;
+}
+
+.signtable {
+    width: 100%;
+    height: 100%;
+}
+.formtable{
+    margin: 0 auto;
+}
+.parentbutton {
+    text-align:center;
+    height: 25px;
+    margin: 20 auto;
+    padding: 10px;
+}
+
+.leftbutton{
+    margin: 0 auto;
+    display: inline-block;
+
+}
+.rightbutton{
+    magin: 0 auto;
+    display: inline-block;
+}

@@ -1,0 +1,19 @@
+{% extends 'index/base.html' %}
+{% block title %}Doctor Register{% endblock %}
+{% block header %}Doctor Registration Page{% endblock %}
+{% block content %}
+<script>
+    function redirect(){
+       window.location.href = "{% url 'index:index' %}";
+    }
+
+    setTimeout(redirect, 3000); //3000 is equivalent to 3 seconds
+</script>
+
+<div class="maincontent">
+    <div class="whitebox">
+        <p>A new doctor account has been created. You will be redirected in 3 seconds.</p>
+    </div>
+</div>
+
+{% endblock %}

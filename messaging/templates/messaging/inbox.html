@@ -1,0 +1,34 @@
+{% extends 'index/base.html' %}
+{% block title %}Messages{% endblock %}
+{% block header %}Your Messages{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="col-md-8 col-md-offset-2">
+            <div id="jumbo" class="jumbotron">
+                <h2 style="text-align:center;">Your Message Inbox</h2>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Sender</th>
+                        <th>Message</th>
+                        <th>Time</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for message in message_list %}
+                        <tr>
+                            <td>{{ message.sender }}</td>
+                            <td>{{ message.content }}</td>
+                            <td>{{ message.timestamp }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <a class="button" href="{% url 'messaging:index' %}">Back</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

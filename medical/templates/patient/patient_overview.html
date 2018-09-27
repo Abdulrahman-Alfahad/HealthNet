@@ -1,0 +1,30 @@
+{% extends 'index/base.html' %}
+{% block title %}Prescriptions{% endblock %}
+{% block header %}Prescriptions Page{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="col-md-8 col-md-offset-2">
+            <div id="jumbo" class="jumbotron">
+                <h2 style="text-align:center;">Prescriptions for {{ patient.user.first_name }} {{ patient.user.last_name }}</h2>
+                {% for prescription in prescription_list %}
+                    <p>Prescribing Doctor: {{ prescription.doctor }}</p>
+                    <p>Drug: {{ prescription.drug.name }}</p>
+                    <p>Quantity Prescribed: {{ prescription.quantity }}</p>
+                    <p>Instructions: {{ prescription.instruction }}</p>
+                {% endfor %}
+                <div class=col-xs-12" style="height:40px;"></div>
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-5">
+                        <a href="#" onclick="window.history.back(); return false;" class="btn btn-primary">
+                            Back
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

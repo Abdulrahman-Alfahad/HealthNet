@@ -1,0 +1,46 @@
+{% extends 'index/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block header %}Doctor Dashboard {% endblock %}
+{% block login %}
+    <li><a href="{% url 'account:logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+{% endblock %}
+{% block content %}
+
+    <div class="container" role="main">
+        <div class="hyper">
+            <div id="jumbo" class="jumbotron">
+                <h1>HNet Messaging System</h1>
+                <p>From here, you can send and receive messages to other users of this system.</p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <a target="_parent" href="{% url 'messaging:send' %}">
+                        <button class="iconbutton">
+                            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                            <p style="font-size:20px;">Send Message</p>
+                        </button>
+                    </a>
+                </div>
+
+                <div class="col-md-4">
+                    <a target="_parent" href="{% url 'messaging:inbox' %}">
+                        <button class="iconbutton">
+                            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                            <p style="font-size:20px;">Message Inbox</p>
+                        </button>
+                    </a>
+                </div>
+
+                <div class="col-md-4">
+                    <a target="_parent" href="{% url 'messaging:outbox' %}">
+                        <button class="iconbutton">
+                            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                            <p style="font-size:20px;">Message Outbox</p>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

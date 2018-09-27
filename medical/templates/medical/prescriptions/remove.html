@@ -1,0 +1,31 @@
+{% extends 'index/base.html' %}
+{% block title %}Remove Prescription{% endblock %}
+{% block header %}Remove Prescription Page{% endblock %}
+{% block content %}
+
+    <div class="maincontent">
+        <div class="whitebox_small">
+            <p class="lead">
+                Are you sure you want to remove this prescription?
+                <br>
+                <strong>This action cannot be undone.</strong>
+            </p>
+
+            <label>Drug</label>
+            <p>{{ prescription.drug }}</p>
+            <label>Quantity Info</label>
+            <p>{{ prescription.quantity_info }}</p>
+            <label>Prescribed at</label>
+            <p>{{ prescription.creation_timestamp }}</p>
+
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="post" value="yes"/>
+                <input type="submit" value="Yes, Remove" class="btn btn-danger btn-lg inactive"/>
+                <a href="#" onclick="window.history.back(); return false;" class="btn btn-default btn-lg inactive"
+                   role="button">Cancel</a>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

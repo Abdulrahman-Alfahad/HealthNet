@@ -1,0 +1,21 @@
+language: python
+
+python:
+  - "3.5"
+
+env:
+  - DJANGO=1.9
+
+install:
+  - pip install Django==1.9
+
+before_script:
+  - python manage.py makemigrations
+  - python manage.py migrate
+  - echo "content" > file.txt
+
+script:
+  - python manage.py test
+ 
+notifications:
+  email: false

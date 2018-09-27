@@ -1,0 +1,78 @@
+{% extends 'index/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block header %}{{ patient.user.first_name }}'s Dashboard {% endblock %}
+{% block login %}
+<li><a href="{% url 'account:logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+{% endblock %}
+{% block content %}
+
+
+<script>
+function myFunction() {
+    if(confirm("Are you sure you want to export your information?") == true) {
+        txt = "{% url 'medical:export_information' %}";
+    } else {
+        txt = "#";
+    }
+    document.getElementById("download").setAttribute("href", txt);
+}
+
+</script>
+
+    <div class="container" role="main">
+        <div class="hyper">
+            <div id="jumbo" class="jumbotron">
+                <h1>{{ patient.user.first_name }}'s Patient Dashboard</h1>
+                <p>From here you are able to select any of the following buttons to access
+                    your profile information, medical information, or view your calendar and existing appointments.
+                    You can also <a id="download" onclick="myFunction()" href="#">click here</a> to export your
+                    medical information.</p>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="col-md-12">
+                        <a target="_parent" href="{% url 'account:profile' %}">
+                            <button class="iconbutton">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                <p style="font-size:20px;">Profile</p>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="col-md-12">
+                        <a target="_parent" href="{% url 'medical:medical_info' %}">
+                            <button class="iconbutton">
+                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                <p style="font-size:20px;">Medical Information</p>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="col-md-12">
+                        <a target="_parent" href="{% url 'reservation:calendar_now' %}">
+                            <button class="iconbutton">
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                <p style="font-size:20px;">Calendar</p></button>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="col-md-12">
+                        <a target="_parent" href="{% url 'messaging:index' %}">
+
+                            <button class="iconbutton">
+                                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                <p style="font-size:20px;">Messaging</p></button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

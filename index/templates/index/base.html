@@ -1,0 +1,99 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/buttons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/hyperlink.css' %}">
+    <link rel="shortcut icon" href="{% static 'css/favicon (1).ico' %}">
+    <script src="https://use.fontawesome.com/4c272d4bbc.js"></script>
+    <title>HealthNet | {% block title %}Home{% endblock %}</title>
+</head>
+<body style="background-color:#1988B5">
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">{% block header %}Welcome To HealthNet!{% endblock %}</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="{% url 'index:index' %}">Home</a></li>
+                {% if user.is_superuser %}
+                <li><a href="/admin/">Admin Console</a></li>
+                <li><a href="/admin/hospital/hospital/">Hospital Creation Shortcut</a></li>
+                {% endif %}
+                {% if user.is_authenticated and not user.is_superuser %}
+                <li class="dropdown">
+                    <a href="{% url 'index:index' %}" class="dropdown-toggle" data-toggle="dropdown"
+                       role="button" aria-haspopup="true"
+                       aria-expanded="false">Profile <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'account:profile' %}">Account Information</a></li>
+                        {% if user.profile_information.account_type == "P" %}
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">Other</li>
+                        <li><a href="{% url 'medical:view_prescriptions' user.patient.id %}">Prescriptions</a></li>
+                        <li><a href="{% url 'medical:test_view' %}">Tests</a></li>
+                        {% endif %}
+                    </ul>
+                </li>
+                {% if user.profile_information.account_type == "D" or user.profile_information.account_type == "N" %}
+                <li><a href="{% url 'medical:view_patients' %}">Patient List</a></li>
+                {% endif %}
+                {% if user.profile_information.account_type == "P" or user.profile_information.account_type == "D" %}
+                <li class="dropdown">
+                    <a href="{% url 'reservation:calendar_now' %}" class="dropdown-toggle" data-toggle="dropdown"
+                       role="button" aria-haspopup="true"
+                       aria-expanded="false">Calendar <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'reservation:create' %}">Schedule Appointment</a></li>
+                        <li><a href="{% url 'reservation:weekview_now' %}">Weekview Calendar</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+                {% if user.profile_information.account_type == "N" %}
+                <li><a href="{% url 'reservation:weekview_now' %}">Calendar</a></li>
+                {% endif %}
+                {% endif %}
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'account:logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                </li>
+                {% else %}
+                <li><a href="{% url 'account:register_patient' %}"><span class="glyphicon glyphicon-user"></span> Sign
+                    Up</a>
+                </li>
+                <li><a href="{% url 'account:login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                {% endif %}
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+{% block content %}
+{% endblock %}
+<div class="container">
+    <footer>
+        <hr class="featurette-divider">
+        <p class="pull-right"><a href="#" style="color:black;"><i class="glyphicon glyphicon-triangle-top"></i></a></p>
+        <p>© 2017, $teamname Healthnet.</p>
+    </footer>
+</div>
+
+</body>
+</html>

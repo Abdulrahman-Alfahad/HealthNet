@@ -1,0 +1,46 @@
+{% extends 'index/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block header %}Patient Dashboard{% endblock %}
+{% block login %}
+<li><a href="{% url 'account:logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+{% endblock %}
+{% block content %}
+
+
+<div class="container" role="main" style="margin-top:75px;">
+    <div class="hyper">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <a target="_parent" href="{% url 'medical:medical_overview' %}">
+                        <button class="iconbutton">
+                            <i class="fa fa-file-text" aria-hidden="true"></i>
+                            <p style="font-size:20px;">Medical Overview</p>
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <a target="_parent" href="{% url 'medical:test_view' %}">
+                        <button class="iconbutton">
+                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                            <p style="font-size:20px;">Tests</p>
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <a target="_parent" href="{% url 'medical:view_prescriptions' patient.id %}">
+                        <button class="iconbutton">
+                            <i class="fa fa-medkit" aria-hidden="true"></i>
+                            <p style="font-size:20px;">Prescriptions</p>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'index/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block header %}Admin Dashboard {% endblock %}
+{% block login %}
+<li><a href="{% url 'account:logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+{% endblock %}
+{% block content %}
+
+<div class="container" role="main">
+    <div class="hyper">
+        <div id="jumbo" class="jumbotron">
+            <h1>Administrator Dashboard</h1>
+            <p>From here you are able to select any of the following buttons to access
+                adding nurse, doctor, or administrator accounts, view system log, or add drugs.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="col-md-12">
+                    <a target="_parent" href="{% url 'hospital:system_information' %}">
+                        <button class="iconbutton">
+                            <i class="fa fa-tasks" aria-hidden="true"></i>
+                            <p style="font-size:20px;">System Information</p>
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-12">
+                    <a target="_parent" href="{% url 'account:add_account' %}">
+                        <button class="iconbutton">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            <p style="font-size:20px;">Add Account</p></button>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-12">
+                    <a target="_parent" href="{% url 'medical:list_drug' %}">
+
+                        <button class="iconbutton">
+                            <i class="fa fa-plus-square" aria-hidden="true"></i>
+                            <p style="font-size:20px;">Drug List</p></button>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-12">
+                    <a target="_parent" href="{% url 'messaging:index' %}">
+                        <button class="iconbutton">
+                            <span class="fa fa-envelope-o" aria-hidden="true"></span>
+                            <p style="font-size:20px;">Messaging</p></button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <h1></h1>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="col-md-12">
+                    <a target="_parent" href="{% url 'medical:view_patients_admin' %}">
+                        <button class="iconbutton">
+                            <span class="fa fa-arrow-circle-o-right" aria-hidden="true"></span>
+                            <p style="font-size:20px;">Transfer Patient</p></button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

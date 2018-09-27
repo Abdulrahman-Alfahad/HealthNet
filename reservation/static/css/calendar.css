@@ -1,0 +1,159 @@
+ul {list-style-type: none;}
+body {font-family: Verdana, sans-serif;}
+
+/* Month header */
+.month {
+    margin-left: 0px;
+    margin-right: 0px;
+    padding: 30px 50px 50px;
+    background: #1abc9c;
+}
+
+.month table {
+    width: 100%;
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+/* Previous button inside month header */
+.month .prev {
+    text-align: left;
+    float: left;
+    font-size: 50px;
+    width: 25%;
+    padding-top: 10px;
+}
+
+/* Next button */
+.month .next {
+    text-align: right;
+    float: right;
+    font-size: 50px;
+    width: 25%;
+    padding-top: 10px;
+}
+
+.monthhead {
+    text-align: center;
+    width: 50%;
+}
+/* Everything Below relates to the actual calendar part */
+
+/* Weekdays (Mon-Sun) */
+.weekdays {
+
+    padding: 10px 0;
+    background-color:#ddd;
+}
+
+.weekdays li {
+    display: inline-block;
+    width: 13.6%;
+    color: #666;
+    text-align: center;
+}
+
+/* dates */
+
+
+.calendar {
+    width: 100%;
+    height: 780px;
+}
+
+.calbox{
+    table-layout: fixed;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+
+
+
+}
+
+.calbox td{
+    margin: 0px;
+    padding: 0px;
+    border: 1px solid black;
+    vertical-align: top;
+    width: 13.6%;
+    height: 130px;
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: white;
+ }
+
+
+.infobox {
+    padding: 0px;
+    font-size: 15px;
+    width: 90%;
+    height: 80%;
+    overflow: hidden;
+    text-align: left;
+    text-decoration: none;
+}
+
+.infobox a{
+
+}
+.nounder {
+    text-decoration: none;
+}
+
+td.hidden {
+    width: 196px;
+    height: 130px;
+ }
+
+.daycal{
+    height: 250px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 2px;
+}
+
+@media (min-width: 768px) {
+  .seven-cols .col-md-1,
+  .seven-cols .col-sm-1,
+  .seven-cols .col-lg-1  {
+    width: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  .seven-cols .col-md-1,
+  .seven-cols .col-sm-1,
+  .seven-cols .col-lg-1 {
+    width: 14.285714285714285714285714285714%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .seven-cols .col-md-1,
+  .seven-cols .col-sm-1,
+  .seven-cols .col-lg-1 {
+    width: 14.285714285714285714285714285714%;
+  }
+}
+
+.dayview{
+    background-color: #eee;
+    text-align: center;
+}
+
+.dayblock{
+    background-color: #eee;
+    border: 1px solid black;
+    border-radius: 2px;
+    height: 200px;
+}
+
+.weekblock{
+    padding: 10px 0px;
+    background-color: #ddd;
+    color: #666;
+
+}

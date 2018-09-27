@@ -1,0 +1,76 @@
+{% extends 'index/base.html' %}
+{% block title %}Appointment Calendar{% endblock %}
+{% block header %}Appointment Calendar{% endblock %}
+{% block content %}
+<br/>
+
+<div class="container" style="margin-top:74px;">
+
+    <div class="month" style="text-align: center;">
+        <div class="row">
+            <div class="col-md-1 col-md-push-10"><a href="#" style="color:white;text-decoration:none;">
+                <i class="fa fa-calendar" aria-hidden="true"></i> Monthview</a></div>
+            <div class="col-md-1 col-md-push-10">
+                <a href="{% url 'reservation:weekview_now' %}" style="color:white;text-decoration:none;">
+                    <i class="fa fa-calendar-minus-o" aria-hidden="true"></i> Weekview</a></div>
+
+        </div>
+        <table>
+            <tr>
+                <td class="prev"><a href="{% url 'reservation:calendar' prev_month prev_year %}"
+                                    style="text-decoration: none;color: white;">&#10094;</a></td>
+                <td class="monthhead">{{ month_name }} {{ year}} {{ last_month }}</td>
+                <td class="next"><a href="{% url 'reservation:calendar' next_month next_year %}"
+                                    style="text-decoration: none;color: white;">&#10095;</a></td>
+            </tr>
+        </table>
+        <a href="{% url 'reservation:overview_today' %}" style="color:white;text-decoration:underline;">Today</a>
+    </div>
+    <ul class="weekdays">
+        <li>Sunday</li>
+        <li>Monday</li>
+        <li>Tuesday</li>
+        <li>Wednesday</li>
+        <li>Thursday</li>
+        <li>Friday</li>
+        <li>Saturday</li>
+    </ul>
+
+    <div class="calendar">
+
+        <table class="calbox">
+
+            {% for week in week_list %}
+            <tr>
+                {% for day in week %}
+                {% if day == "none" %}
+                <td style="background-color:#1988B5; border:none;"><p style="color: #1988B5">{{ day }}</p>
+
+                </td>
+                {% else %}
+                <td style="background-color:#ddd">{{ day }}
+                    <a href="{% url 'reservation:overview' day month year %}" class="infobox"
+                       style="text-decoration:none;color:black;display:block;">
+                        <ul style="background-color:#ddd; padding-left:15px;">
+                            {% for appointment in appointment_list %}
+                            {% if appointment.date.day == day %}
+                            {% if appointment.date.month == month %}
+                            <li>{{ appointment.title }}: <p style="font-size:10px;">{{ appointment.start_time }}
+                                -{{appointment.end_time }}</p></li>
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </a>
+                </td>
+
+                {% endif %}
+                {% endfor %}
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+</div>
+
+{% endblock %}

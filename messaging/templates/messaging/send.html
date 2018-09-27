@@ -1,0 +1,26 @@
+{% extends 'index/base.html' %}
+{% block title %}New Message{% endblock %}
+{% block header %}Drafting New Message{% endblock %}
+
+{% block content %}
+    <div class="maincontent">
+        <div class="whitebox_small">
+            <form method="post" action="{% url 'messaging:send' %}">
+                {% csrf_token %}
+                <table>
+                    {{ form.as_table }}
+                </table>
+                <div class="parentbutton">
+                    <div class="leftbutton">
+                        <input type="submit" value="Send" class="button"/>
+                    </div>
+                    <div class="rightbutton">
+                        <a href="#" onclick="window.history.back(); return false;">
+                            <button class="button">Back</button>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

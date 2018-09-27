@@ -1,0 +1,38 @@
+{% extends 'index/base.html' %}
+{% block title %}Tests{% endblock %}
+{% block header %}Tests Page{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="col-md-8 col-md-offset-2">
+        <div id="jumbo" class="jumbotron">
+            <h2 style="text-align:center;">Tests</h2>
+            {% if test_list %}
+            {% for test in test_list %}
+            <div class="row">
+                <div class="col-md-10" style="overflow:hidden;">
+                    <p>Description: {{ test.description }}</p>
+                </div>
+                <div class="col-md-2 col-md-pull-1">
+                    <a href="{% url 'medical:test_detail' test.id %}" class="btn btn-primary">
+                        View Test Results
+                    </a>
+                </div>
+            </div>
+            <hr class="featurette-divider">
+            {% endfor %}
+            {% else %}
+            <p>You have no released Tests.</p>
+            {% endif %}
+            <div class="row">
+                <div class="col-md-4">
+                    <a href="#" onclick="window.history.back(); return false;" class="btn btn-primary">
+                        Back
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

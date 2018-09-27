@@ -1,0 +1,115 @@
+{% extends 'index/base.html' %}
+{% block title %}Update Diagnosis{% endblock %}
+{% block header %}Update Diagnosis{% endblock %}
+
+{% block content %}
+<div class="maincontent">
+    <div class="whitebox">
+        <h3 style="text-align: center">
+            Diagnosis for {{ form.instance.get_patient.user.first_name }} {{ form.instance.patient.user.last_name }}
+        </h3>
+
+        {% if archived %}
+        <p style="text-align: center; color: red">
+            Archived
+        </p>
+        {% else %}
+        <div class="parentbutton">
+            <div class="rightbutton">
+                <a href="{% url 'medical:archive_diagnosis' form.instance.id %}"
+                   class="btn btn-default btn-lg inactive" role="button">Archive</a>
+            </div>
+        </div>
+        <div class=col-xs-12" style="height:40px;"></div>
+        {% endif %}
+
+        {% if message %}
+        <p style="text-align: center;">{{ message }}</p>
+        {% endif %}
+
+        <form method="post" action="{% url 'medical:update_diagnosis' form.instance.id %}"
+              style="margin-bottom: 44pt;">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+
+            <div class="parentbutton">
+                <div class="leftbutton">
+                    <input type="submit" value="Save" class="btn btn-default btn-lg inactive"/>
+                </div>
+                <div class="rightbutton">
+                    <a href="{% url 'medical:view_medical_information' form.instance.patient.id %}"
+                       class="btn btn-default btn-lg inactive" role="button">Back to Patient</a>
+                </div>
+            </div>
+        </form>
+
+        <div style="text-align: center;">
+            <h3 style="text-align: center;">Tests</h3>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <td class="lead" style="font-weight: bold;">Description</td>
+                    <td class="lead" style="font-weight: bold;">Status</td>
+                    <td></td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for test in form.instance.test_set.all %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td><a href="{% url 'medical:upload_test_result' test.id %}">{{ test }}</a></td>
+                    <td>{{ test.status }}</td>
+                    <td>
+                        {% if test.uploaded and not test.released %}
+                        <a href="{% url 'medical:release_test_result' test.id %}"
+                           class="btn btn-success btn-xs">Publish</a>
+                        {% else %}
+                        <a href="#" class="btn btn-success btn-xs disabled" disabled>Publish</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <a href="{% url 'medical:request_test' form.instance.id %}" class="btn btn-primary btn-lg">Request Test</a>
+        </div>
+
+        <div style="text-align: center;">
+            <h3 style="text-align: center;">Prescriptions</h3>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <td class="lead" style="font-weight: bold;">Drug</td>
+                    <td class="lead" style="font-weight: bold;">Prescribing Doctor</td>
+                    <td class="lead" style="font-weight: bold;">Quantity Info</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for prescription in form.instance.prescription_set.all %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>
+                        <a href="{% url 'medical:edit_prescriptions' prescription.id %}">{{ prescription.drug }}</a>
+                    </td>
+                    <td>{{ prescription.doctor.full_name }}</td>
+                    <td>{{ prescription.quantity_info }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <a href="{% url 'medical:add_prescriptions' form.instance.id %}" class="btn btn-primary btn-lg">Add
+                Prescription</a>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

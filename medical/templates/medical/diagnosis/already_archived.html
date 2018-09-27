@@ -1,0 +1,15 @@
+{% extends 'index/base.html' %}
+{% block title %}Archive Diagnosis{% endblock %}
+{% block header %}Archive Diagnosis{% endblock %}
+{% block content %}
+
+    <div class="maincontent">
+        <div class="whitebox" style="text-align:center;">
+            <p>Diagnosis already archived.</p>
+            <a href="{% url 'medical:update_diagnosis' diagnosis.id %}" class="btn btn-default btn-lg inactive">
+                Back to Diagnosis
+            </a>
+        </div>
+    </div>
+
+{% endblock %}

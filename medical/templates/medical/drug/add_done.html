@@ -1,0 +1,24 @@
+{% extends 'index/base.html' %}
+{% block title %}Drug Added{% endblock %}
+{% block header %}Drug Added Confirmation{% endblock %}
+
+{% block content %}
+
+    <div class="maincontent">
+        <div class="whitebox_small">
+
+            <h2>Drug added</h2>
+
+            <div class="parentbutton">
+                <div class="leftbutton">
+                    <a href="{% url 'medical:add_drug' %}" class="button">Add another drug</a>
+                </div>
+                <div class="rightbutton">
+                    <a href="{% url 'medical:list_drug' %}" class="button">Return to drug list</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

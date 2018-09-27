@@ -1,0 +1,29 @@
+{% extends 'index/base.html' %}
+{% block title %}Doctor Register{% endblock %}
+{% block header %}Doctor Registration Page{% endblock %}
+{% block content %}
+
+<div class="maincontent">
+    <div class="whitebox">
+        <form method="post" action="{% url 'account:create_doctor' %}">
+            {% csrf_token %}
+            <table>
+                {{ user_form.as_table }}
+                {{ profile_information_form.as_table }}
+                {{ doctor_form.as_table }}
+            </table>
+            <div class="parentbutton">
+                <div class="leftbutton">
+                    <input type="submit" value="Register" class="btn btn-default btn-lg inactive"/>
+                </div>
+                <div class="rightbutton">
+                    <a href="#" onclick="window.history.back(); return false;" class="btn btn-default btn-lg inactive"
+                       role="button">Cancel</a>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

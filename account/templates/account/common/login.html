@@ -1,0 +1,50 @@
+{% extends 'index/base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+
+
+    <form method="post" action="{% url 'account:login' %}">
+        {% csrf_token %}
+        <div class="signin" style="padding-bottom:50px;">
+            {% if next %}
+                {% if user.is_authenticated %}
+                    <p style="color:red;text-align:center;">Your account doesn't have access to this page.
+                        To proceed,please login with an account that has access.</p>
+                {% else %}
+                    <p style="color:red;text-align:center;">Please login to see this page.</p>
+                {% endif %}
+            {% endif %}
+
+            <h1 style="text-align:center;">Login</h1>
+            <div class="signtable">
+                <table class="formtable">
+                    <tr>
+                        <td>{{ form.username.label_tag }}</td>
+                        <td>{{ form.username }}</td>
+
+                    </tr>
+                    <tr>
+                        <td>{{ form.password.label_tag }}</td>
+                        <td>{{ form.password }}</td>
+
+                    </tr>
+                </table>
+                {% if form.errors %}
+                    <p style="color:red; text-align:center;">Your username and password didn't match. Please try
+                        again.</p>
+                {% endif %}
+            </div>
+            <div class="parentbutton">
+                <div class="leftbutton">
+                    <input type="submit" value="Log In" class="button"/>
+                </div>
+                <div class="rightbutton">
+                    <a href="{% url 'index:index' %} " class="button">Back</a>
+                </div>
+            </div>
+        </div>
+
+
+        <input type="hidden" name="next" value="{{ next }}"/>
+    </form>
+{% endblock %}

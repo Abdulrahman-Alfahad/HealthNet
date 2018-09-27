@@ -1,0 +1,13 @@
+{% extends 'index/base.html' %}
+{% block title %}Release Test Result{% endblock %}
+{% block header %}Release Test Result{% endblock %}
+{% block content %}
+
+    <div class="maincontent">
+        <div class="whitebox" style="text-align:center;">
+            <p>Test result successfully released.</p>
+            <a href="{% url 'medical:update_diagnosis' diagnosis_id %}" class="button">Return to diagnosis</a>
+        </div>
+    </div>
+
+{% endblock %}

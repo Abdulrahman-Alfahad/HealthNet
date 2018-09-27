@@ -1,0 +1,22 @@
+{% extends 'index/base.html' %}
+{% block title %}Remove Prescription{% endblock %}
+{% block header %}Remove Prescription{% endblock %}
+
+{% block content %}
+
+    <script>
+        function redirect() {
+            window.location.href = "{% url 'medical:update_diagnosis' diagnosis_id %}";
+        }
+
+        setTimeout(redirect, 3000); //3000 is equivalent to 3 seconds
+    </script>
+
+    <div class="maincontent">
+        <div class="whitebox" style="text-align:center;">
+            <p>Prescription successfully removed.</p>
+            <a href="{% url 'medical:update_diagnosis' diagnosis_id %}" class="button">Return to diagnosis</a>
+        </div>
+    </div>
+
+{% endblock %}

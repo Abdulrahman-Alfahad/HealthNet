@@ -1,0 +1,23 @@
+{% extends 'index/base.html' %}
+{% block title %}Statistics{% endblock %}
+{% block header %}View Statistics{% endblock %}
+{% block content %}
+
+    <div class="container" style="margin-top:75px;">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="well" style="text-align: center;">
+                    {% for stats in stats_list %}
+                        <h2>Statistics for {{ stats.hospital.name }}</h2>
+                        {% for i in stats.calculate %}
+                            <p>{{ i }}</p>
+                        {% endfor %}
+                    {% endfor %}
+
+                    <a href="{% url 'hospital:system_information' %}" class="button">Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

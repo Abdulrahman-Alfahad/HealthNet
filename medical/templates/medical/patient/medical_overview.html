@@ -1,0 +1,62 @@
+{% extends 'index/base.html' %}
+{% block title %}Medical Overview{% endblock %}
+{% block header %}Medical Overview Page{% endblock %}
+{% block calendar %}Calendar <span class="caret"></span>{% endblock %}
+{% block profile %}Profile <span class="caret"></span>{% endblock %}
+{% block login %}
+<li><a href="{% url 'account:logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="maincontent">
+    <div class="whitebox_small">
+
+        <h2>
+            Diagnoses for {{ patient.user.first_name }} {{ patient.user.last_name }}
+        </h2>
+
+        {% load get_diagnoses %}
+
+        <table class="table table-condensed">
+            <tbody style="text-align: left;">
+
+            {% for item in medical_information %}
+
+            {% get_diagnoses item as diagnosis_list %}
+
+            {% for diagnosis in diagnosis_list %}
+            <tr>
+                <td>
+                    {% if diagnosis.archived %}
+                    <p>{{ diagnosis }}
+                        <t style="color: red; font-style: italic">Archived</t>
+                    </p>
+                    {% else %}
+                    <p>{{ diagnosis }}</p>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+
+            <tr>
+                <td></td>
+            </tr>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+        <h2>
+            Medical History
+        </h2>
+
+        {{ patient.medical_information }}
+
+        <div class=col-xs-12" style="height:40px;"></div>
+
+        <a href="{% url 'medical:medical_info' %}" class="btn btn-primary">Back</a>
+
+    </div>
+</div>
+{% endblock %}

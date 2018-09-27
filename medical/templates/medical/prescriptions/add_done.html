@@ -1,0 +1,26 @@
+{% extends 'index/base.html' %}
+{% block title %}Add Prescription{% endblock %}
+{% block header %}Add Prescription{% endblock %}
+
+{% block content %}
+
+    <div class="maincontent">
+        <div class="whitebox_small" style="text-align:center;">
+
+            <h2>Prescription added</h2>
+
+            <div class="parentbutton">
+                <div class="leftbutton">
+                    <a href="{% url 'medical:add_prescriptions' diagnosis_id %}" class="button">
+                        Add another prescription
+                    </a>
+                </div>
+                <div class="rightbutton">
+                    <a href="{% url 'medical:update_diagnosis' diagnosis_id %}" class="button">Return to diagnosis</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

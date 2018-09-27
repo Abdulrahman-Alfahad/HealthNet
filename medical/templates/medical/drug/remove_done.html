@@ -1,0 +1,20 @@
+{% extends 'index/base.html' %}
+{% block title %}Remove Drug{% endblock %}
+{% block header %}Remove Drug Page{% endblock %}
+{% block content %}
+<script>
+    function redirect(){
+       window.location.href = "{% url 'medical:add_drug' %}";
+    }
+
+    setTimeout(redirect, 3000); //3000 is equivalent to 3 seconds
+</script>
+
+<div class="maincontent">
+    <div class="whitebox" style="text-align:center;">
+        <p>Drug successfully removed. If you are not redirected in 3 seconds,
+            <a href="{% url 'medical:list_drug' %}">click here</a> to return to drug list.</p>
+    </div>
+</div>
+
+{% endblock %}

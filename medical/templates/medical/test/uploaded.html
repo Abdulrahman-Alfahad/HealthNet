@@ -1,0 +1,20 @@
+{% extends 'index/base.html' %}
+{% block title %}Upload Test Results{% endblock %}
+{% block header %}Upload Test Results Page{% endblock %}
+{% block content %}
+
+    <div class="maincontent">
+        <div class="whitebox" style="text-align: center;">
+            <h3>Results successfully uploaded.</h3>
+            <div class="parentbutton">
+                <div class="leftbutton">
+                    <a href="{% url 'medical:update_diagnosis' test.diagnosis.id %}" class="button">Return to diagnosis</a>
+                </div>
+                <div class="rightbutton">
+                    <a href="{% url 'medical:release_test_result' test.id %}" class="button">Release Test Result</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

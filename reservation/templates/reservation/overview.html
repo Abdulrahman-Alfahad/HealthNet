@@ -1,0 +1,37 @@
+{% extends 'index/base.html' %}
+{% block title %}Appointment Overview{% endblock %}
+{% block header %}Appointments for {{ month_name }} {{ date.day }}, {{ date.year }}{% endblock %}
+{% block content %}
+
+<div class="container" style="margin-top:75px;">
+    <div class="well">
+        {% for appointment in appointment_list %}
+        <h4>{{ appointment.title }}</h4>
+        <p>Patient Name: {{ appointment.patient }}<br/>
+            Doctor Name: {{ appointment.doctor }}<br/>
+            Room: {{ appointment.location }}<br/>
+            Time: {{ appointment.start_time }} - {{ appointment.end_time }}</p>
+        <a href="{% url 'reservation:edit' appointment.id %}" class="btn btn-default btn-md inactive"
+           role="button">Edit Appointment</a>
+        {% if can_cancel %}
+        <a href="{% url 'reservation:cancel' appointment.id %}" class="btn btn-default btn-md inactive"
+           role="button">Cancel Appointment</a>
+        <br />
+        {% endif %}
+        {% empty %}
+
+        <p style="text-align:center;">You have no appointments. Click 'Create' to schedule an appointment.</p>
+        <br />
+        {% endfor %}
+        <div class="row">
+            <div class="col-md-5 col-md-offset-4">
+                <button class="button"><a href="{% url 'reservation:create' %}">Create</a></button>
+                <button class="button">
+                    <a href="{% url 'reservation:calendar' date.month date.year %}">Calendar</a>
+                </button>
+                <button class="button"><a href="{% url 'index:index' %}">Dashboard</a></button>
+            </div>
+            <br/>
+        </div>
+    </div>
+    {% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'index/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block header %}Doctor Dashboard {% endblock %}
+{% block login %}
+    <li><a href="{% url 'account:logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+{% endblock %}
+{% block content %}
+
+<div class="container" role="main">
+    <div class="hyper">
+        <div id="jumbo" class="jumbotron">
+            <h1>Dr. {{ doctor.user.last_name }}'s Dashboard</h1>
+            <p>From here you are able to select any of the following buttons to access
+                patient information, create prescriptions for patients, add test results for patients, and view your
+                calendar.</p>
+        </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="col-md-12">
+                        <a target="_parent" href="{% url 'account:profile' %}">
+                            <button class="iconbutton">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                <p style="font-size:20px;">Profile</p>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="col-md-12">
+                        <a target="_parent" href="{% url 'medical:view_patients' %}">
+                            <button class="iconbutton">
+                                <i class="fa fa-users" aria-hidden="true"></i>
+                                <p style="font-size:20px;">Patients</p>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="col-md-12">
+                        <a target="_parent" href="{% url 'reservation:calendar_now' %}">
+                            <button class="iconbutton">
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                <p style="font-size:20px;">Calendar</p></button>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="col-md-12">
+                        <a target="_parent" href="{% url 'messaging:index' %}">
+
+                            <button class="iconbutton">
+                                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                <p style="font-size:20px;">Messaging</p></button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

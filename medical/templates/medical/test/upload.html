@@ -1,0 +1,41 @@
+{% extends 'index/base.html' %}
+{% block title %}Upload Test Results{% endblock %}
+{% block header %}Upload Test Results Page{% endblock %}
+
+{% block content %}
+    <div class="maincontent">
+        <div class="whitebox">
+            <h3 style="text-align: center">
+                Test Results for Test #{{ test.id }}
+            </h3>
+
+            {% if message %}
+                <p style="text-align: center;">{{ message }}</p>
+            {% endif %}
+
+            <form method="post" action="{% url 'medical:upload_test_result' test.id %}" style="margin-bottom: 44pt;" enctype="multipart/form-data">
+                {% csrf_token %}
+                <table>
+                    {{ results_form.as_table }}
+                </table>
+
+                <div class="parentbutton">
+                    <div class="leftbutton">
+                        <input type="submit" value="Save" class="btn btn-default btn-lg inactive"/>
+                    </div>
+                    <div class="rightbutton">
+                        <a href="#" onclick="window.history.back(); return false;"
+                           class="btn btn-default btn-lg inactive" role="button">Cancel</a>
+                    </div>
+                </div>
+            </form>
+
+            {% if test.uploaded and not test.released %}
+                <div style="text-align: center;">
+                    <a href="{% url 'medical:release_test_result' test.id %}" class="button">Release Test Result</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
